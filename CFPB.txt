@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 14 09:31:13 2016
+
+@author: drahozal
+"""
+
+# python program to download and save text versions of credit card agreements
+# from CFPB web page
+import time
+import requests
+# set starting document number at i
+# set ending document number at j; program adds 1 to avoid ending loop too soon
+i=9337
+j=9338
+j=j+1
+# loop through all documents i through j
+# define filename as name of file in which agreement text is stored
+# get agreementtxt from web page; save to filename; close
+# repeat
+for index in range (i, j):
+    docnum=str(i)
+    filename = 'C:/Users/drahozal/OneDrive/Credit Card Agreements from CFPB Web Site/' + docnum + '.txt'
+    agreementtxt = requests.get('http://files.consumerfinance.gov/a/assets/credit-card-agreements/txt/creditcardagreement_' + docnum + '.txt')
+    agreementtxt = str(agreementtxt.content)
+    output = open(filename,'w')
+    output.write(agreementtxt)
+    output.close()
+    i=i+1
+    time.sleep(5)
